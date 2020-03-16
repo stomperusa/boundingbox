@@ -1,12 +1,15 @@
 Package: boundingbox
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Create a Bounding Box in an Image
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Authors@R: person("David", "Stomski", email = "stomperusa@verizon.net", 
+    role = c("aut", "cre"))
+Description: Cycle through a list of images. Select between 2 and 26 points on 
+    an image. The boxer() function will output the image with a bounding box based 
+    on the max/min coordinates and a dataframe of the coordinates. Also allows
+    to resize the image, change the box color, add a classifier to the dataframe
+    and to the image.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
@@ -14,3 +17,4 @@ Imports:
     grDevices,
     graphics,
     utils
+RoxygenNote: 6.1.1
