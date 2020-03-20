@@ -16,5 +16,6 @@ Imports:
     imager,
     grDevices,
     graphics,
-    utils
+    utils,
+    tools
 RoxygenNote: 6.1.1

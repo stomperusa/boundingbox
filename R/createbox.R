@@ -27,7 +27,12 @@ createBox <- function(points_process, image, file_path_output, fname, lab, color
     points_boxed <- points_process[,c("file_name", "x_left", "y_top", "x_right", "y_bottom")]
 
     #DRAW THE BOUNDING BOX OVER THE IMAGE AND SAVE AS OUTPUT
-    grDevices::jpeg(filename= paste0(file_path_output, "out_",fname))
+    if(tools::file_ext(fname)=="png"){
+        grDevices::png(filename= paste0(file_path_output, "out_",fname))
+        } else {
+        grDevices::jpeg(filename= paste0(file_path_output, "out_",fname))
+        }
+
     graphics::plot(image)
     graphics::lines(c(points_process$x_left, points_process$x_left),
           c(size_y - points_process$y_top, size_y - points_process$y_bottom),lwd = 2,  col=color)

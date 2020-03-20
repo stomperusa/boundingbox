@@ -47,6 +47,9 @@
 boxer <- function(names, file_path_input, file_path_output, color = "red",
                   size_x = NA, size_y = NA, classifier = NA, show_classifier = F){
 
+    #check for file formats
+    if(!all(tools::file_ext(dog_pics) %in% c("jpg", "jpeg", "png"))) stop('Only jpg, jpeg, png formats allowed')
+
     #Empty data frame used to capture bounding box coorindates
     points_master <- data.frame()
     lab <- ifelse(show_classifier == TRUE, classifier, "")
