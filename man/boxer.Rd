@@ -5,7 +5,8 @@
 \title{Create a bounding box in an image based on selected points}
 \usage{
 boxer(names, file_path_input, file_path_output, color = "red",
-  size_x = NA, size_y = NA, classifier = NA, show_classifier = F)
+  size_x = NA, size_y = NA, classifier = NA, show_classifier = F,
+  batch = length(names))
 }
 \arguments{
 \item{names}{A list that contains the names of the image files to cycle
@@ -30,11 +31,14 @@ coordinates. Default is NA.}
 
 \item{show_classifier}{Logical to indicate to print the classifier along with
 the bounding box. Default is F.}
+
+\item{batch}{Number of images to annotate before prompt to breakout of
+stream. Default is the full number of images.}
 }
 \value{
 A dataframe with the bounding box coordinates for each image, and a
-  new image file with the bounding box annotation for each of the images
-  processed.
+ new image file with the bounding box annotation for each of the images
+ processed.
 }
 \description{
 \code{boxer} allows the user to identify an area in an image around which to
@@ -45,18 +49,34 @@ Stream a series of JPEG or PNG images from a directory that each appears on
 the screen, and indicate between 2 and 26 points that define an area around
 which a bounding box is generated based on the max/min x and y values of the
 selected coordinates. There are two outputs. One is a dataframe with the name
-of the original image, the coordinates of the bounding box ("x_left",
-"y_top", "x_right", "y_bottom") and the classifier. Another is, for each
-image, an image file "out_<original_file_name>" annotated with the bounding
-box, the classifier printed above the bounding box if show_classifer is set
-to TRUE, and resized if either the size_x or size_y parameter is given.
+of the original image, the coordinates of the bounding box ("x_left", "y_top",
+"x_right", "y_bottom") and the classifier. Another is, for each image, an
+image file "out_<original_file_name>" annotated with the bounding box, the
+classifier printed above the bounding box if show_classifer is set to TRUE,
+and resized if either the size_x or size_y parameter is given.
+
+When an image appears, use the left mouse button to select a point, and the
+right mouse button to signal completion and to move to the next image. At
+least two points must be selected to record a bounding box. If more than 26
+points are selected, only the first 26 will be used. At the completion of each
+image, a file of the image with the bounding box will be output. If you do not want to
+create a bounding box for a particular image, select the right mouse button
+without selecting any points. A warning message will be printed at the end for
+each image for which a bounding box was not created. The dataframe of bounding box
+coordinates will only be returned when all of the images have been cycled
+through unless the stream is broken by the batch prompt.  The batch
+paramater can be set for the number of images to cycle through before the user
+is prompted to truncate the stream. Selecting "y" at the prompt will truncate
+the stream and return the bounding box coordinates for all of the images up to
+that point. Selecting any other key will continue to stream through the next
+batch of images.
 }
 \examples{
 \dontrun{
 boxer(names = c("dog.275.jpg", "dog.544.jpg", "dog.119.jpg"),
 file_path_input = "/dog_pics/input/", file_path_output = "/dog_pics/output/",
 color = "blue", size_x = 224, size_y = 224, classifier = "dog",
-show_classifier = T)
+show_classifier = T, batch = 2)
 }
 
 }
