@@ -107,12 +107,19 @@ boxer <- function(names, file_path_input, file_path_output, color = "red",
         points$file_name<- fname
         points_process <- points[,c(ncol(points),1:(ncol(points)-1))]
 
-        points_boxed <-createBox(points_process = points_process, image = image, file_path_output =file_path_output,
-                  fname = fname, lab = lab, color = color, point_count = point_count, size_x = size_x,
+        # generate box coordinates
+        points_boxed <-boxPoints(points_process = points_process, point_count = point_count, size_x = size_x,
                   size_y = size_y)
 
-        #UPDATE DATA FRAME WITH THE BOUNDING BOX COORDINATES FOR EACH IMAGE
+        # Update dataframe with image coordinates
         points_master <- rbind(points_master, points_boxed)
+
+
+        # Output image file with bounding box
+        createBox(points_boxed = points_boxed, image = image, file_path_output =file_path_output,
+                                 fname = fname, lab = lab, color = color, size_x = size_x,
+                                 size_y = size_y)
+
     }
     points_master$classifier <- classifier
     return(points_master)
