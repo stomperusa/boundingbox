@@ -3,7 +3,7 @@
 #'\code{boxer} allows the user to identify an area in an image around which to
 #'generate a bounding box.
 #'
-#'Stream a series of JPEG or PNG images from a directory. As each image
+#'Stream a series of images (JPEG, PNG, BMP) from a directory. As each image
 #'appears, indicate between 2 and 26 points. A bounding box will be generated
 #'based on the max/min x and y values of the selected coordinates. There are two
 #'outputs. One is a dataframe with the name of the original image, the

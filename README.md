@@ -1,9 +1,3 @@
----
-output:
-  word_document: default
-  pdf_document: default
-  html_document: default
----
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 boundingbox

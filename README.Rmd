@@ -37,7 +37,7 @@ box_coords <- boxer(names = c("dog_pic1.jpg", "dog_pic2.jpg"), file_path_input =
 ```
 When an image appears, use the left mouse button to select a point, and the right mouse button to signal completion and to move to the next image. To skip through any of the images, use the right mouse button prior to selecting any points with the left button. If the selected point goes out of the bounds of the image, the x and/or y coordinate is adjusted to bring the point back into bounds. Specifically, it is adjusted to the nearest set of coordinates on the inside edge of the image. 
 
-Here is the first image with multiple points selected.
+Here is the first image with multiple points selected. 
 
 ![An image with multiple points selected](tools/README-input-1.jpg)
 
