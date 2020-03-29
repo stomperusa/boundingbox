@@ -62,7 +62,7 @@ boxer <- function(names, file_path_input, file_path_output, color = "red",
                   batch = length(names)) {
 
     #check for file formats
-    if(!all(tools::file_ext(names) %in% c("jpg", "jpeg", "png"))) stop('Only jpg, jpeg, png formats allowed')
+    if(!all(tools::file_ext(names) %in% c("jpg", "jpeg", "png", "bmp"))) stop('Only supports jp(e)g, png, bmp formats')
 
     #Empty data frame used to capture bounding box coorindates
     points_master <- data.frame()

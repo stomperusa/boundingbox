@@ -2,8 +2,12 @@
 createBox <- function(points_boxed, image, file_path_output, fname, lab, color, size_x, size_y){
 
     #DRAW THE BOUNDING BOX OVER THE IMAGE AND SAVE AS OUTPUT
-    if(tools::file_ext(fname)=="png"){
+    if (tools::file_ext(fname) =="png"){
         grDevices::png(filename= paste0(file_path_output, "out_",fname))
+
+        } else if (tools::file_ext(fname) =="bmp") {
+        grDevices::bmp(filename= paste0(file_path_output, "out_",fname))
+
         } else {
         grDevices::jpeg(filename= paste0(file_path_output, "out_",fname))
         }
