@@ -1,7 +1,7 @@
 Package: boundingbox
 Type: Package
 Title: Create a Bounding Box in an Image
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: person("David", "Stomski", email = "stomperusa@verizon.net", 
     role = c("aut", "cre"))
 Description: Cycle through a list of images. Select between 2 and 26 points on 
