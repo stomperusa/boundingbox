@@ -2,7 +2,8 @@
 showPlot <- function(image, fname, color){
     grDevices::x11()
     graphics::plot(image)
-    points <- selectBounds(color = color, fname = fname)
+    bounds <- graphics::locator(type = "p", col = color)
+    points <- checkBounds(bounds = bounds, fname = fname)
     grDevices::dev.off()
     return(points)
 }
