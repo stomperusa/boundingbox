@@ -29,7 +29,7 @@
 #'coordinates for all of the images up to that point. Selecting any other key
 #'will continue to stream through the next batch of images.
 #'
-#'@param names A list that contains the names of the JPG or PNG image files.
+#'@param names A list that contains the names of JPG, PNG, or BMP image files.
 #'@param file_path_input The directory that contains the image files.
 #'@param file_path_output The directory where to save annotated images.
 #'@param color The color of the bounding box. Default is "red".
