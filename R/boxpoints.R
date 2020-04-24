@@ -23,6 +23,8 @@ boxPoints <- function(points_process, size_x, size_y, point_count){
     points_process$x_right <- apply(points_process[ , x_columns], 1, max)
     points_process$y_bottom <- apply(points_process[ , y_columns], 1, max)
     points_boxed <- points_process[,c("file_name", "x_left", "y_top", "x_right", "y_bottom")]
+    points_boxed$size_x <- size_x
+    points_boxed$size_y <- size_y
 
     return(points_boxed)
 }

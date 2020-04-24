@@ -1,12 +1,12 @@
 
-capturePoints <- function(n, file_path_input, names, size_x , size_y, color){
+capturePoints <- function(n, file_path_input, names, resize_x , resize_y, color){
 
     #PREPARE THE IMAGE
     fname <- names[n]
     img_path <- paste0(file_path_input,fname)
     img <- imager::load.image(img_path)
-    size_x <- ifelse(is.na(size_x), dim(img)[1], size_x)
-    size_y <- ifelse(is.na(size_y), dim(img)[1], size_y)
+    size_x <- ifelse(is.na(resize_x), dim(img)[1], resize_x)
+    size_y <- ifelse(is.na(resize_y), dim(img)[2], resize_y)
     image <- grDevices::as.raster(imager::resize(img, size_x = size_x, size_y = size_y))
 
     #CAPTURE  POINTS OVER THE IMAGE

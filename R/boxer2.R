@@ -57,9 +57,9 @@
 #' }
 #'
 #'@export
-boxer <- function(names, file_path_input, color = "red", resize_x = NA, resize_y = NA,
-                  classifier = NA,  batch = length(names),
-                  outpics = F, file_path_output = NA, show_classifier = F) {
+boxer2 <- function(names, file_path_input, resize_x = NA, resize_y = NA,
+                  batch = length(names), classifier = classifier, color = "red",
+                  outpics = F, file_path_output = NA ,show_classifier = F) {
 
     #check for file formats
     if(!all(tools::file_ext(names) %in% c("jpg", "jpeg", "png", "bmp"))) stop('Only supports jp(e)g, png, bmp formats')
@@ -68,7 +68,7 @@ boxer <- function(names, file_path_input, color = "red", resize_x = NA, resize_y
     points_master <- data.frame()
 
 
-     #Cycle through each of the named image files
+    #Cycle through each of the named image files
     for(n in 1:length(names)){
 
         # offer User to breakout out of the loop
@@ -79,6 +79,10 @@ boxer <- function(names, file_path_input, color = "red", resize_x = NA, resize_y
             }
         }
 
+        cycle <- TRUE
+        box_count <- 0
+
+        while (cycle == TRUE){
 
         image_points <- list()
 
@@ -109,19 +113,33 @@ boxer <- function(names, file_path_input, color = "red", resize_x = NA, resize_y
 
         # generate box coordinates
         points_boxed <-boxPoints(points_process = points_process, point_count = point_count, size_x = size_x,
-                  size_y = size_y)
+                                 size_y = size_y)
+
+
+        class <- as.numeric(readline(prompt = "Enter ref# for the classifier of this bounding box "))
+        points_boxed$classifier <- as.character(classifier$class[classifier$ref == class])
+        points_boxed$color <- as.character(classifier$color[classifier$ref == class])
+
 
 
         # Update dataframe with image coordinates
         points_master <- rbind(points_master, points_boxed)
 
+        image <- if(box_count > 0){
+                    recaptureImage(file_path_input = file_path_input, fname = fname, size_x = size_x, size_y = size_y)
+                } else {
+                    image
+                }
+
+        box_count <- box_count + 1
+
+        cycle <- as.numeric(readline(prompt = "Select (0) for next image, (1) to add another bounding box "))
+
+        } #ends cycle
+
 
     }
-    points_master$classifier <- classifier
-    points_master$color <- color
-
     if(outpics == T) {createBox(points_master = points_master, file_path_input = file_path_input,
                                 file_path_output = file_path_output, show_classifier = show_classifier)}
-
     return(points_master)
 }

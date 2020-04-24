@@ -1,28 +1,62 @@
+createBox <- function(points_master, file_path_input, file_path_output, show_classifier = F){
 
-createBox <- function(points_boxed, image, file_path_output, fname, lab, color, size_x, size_y){
+    for (fname in points_master$file_name){
+
+       image <- recaptureImage(file_path_input = file_path_input, fname = fname,
+                               size_x = points_master[points_master$file_name == fname,"size_x"][1],
+                               size_y = points_master[points_master$file_name == fname,"size_y"][1])
+
+
+       points_boxed <- points_master[points_master$file_name == fname,]
+
+
 
     #DRAW THE BOUNDING BOX OVER THE IMAGE AND SAVE AS OUTPUT
     if (tools::file_ext(fname) =="png"){
-        grDevices::png(filename= paste0(file_path_output, "out_",fname))
+        grDevices::png(filename= paste0(file_path_output, "out_",fname),
+                       width =  points_master[points_master$file_name == fname,"size_x"][1],
+                       height = points_master[points_master$file_name == fname,"size_y"][1])
 
-        } else if (tools::file_ext(fname) =="bmp") {
-        grDevices::bmp(filename= paste0(file_path_output, "out_",fname))
+    } else if (tools::file_ext(fname) =="bmp") {
+        grDevices::bmp(filename= paste0(file_path_output, "out_",fname),
+                       width =  points_master[points_master$file_name == fname,"size_x"][1],
+                       height = points_master[points_master$file_name == fname,"size_y"][1])
 
-        } else {
-        grDevices::jpeg(filename= paste0(file_path_output, "out_",fname))
-        }
+    } else {
+        grDevices::jpeg(filename= paste0(file_path_output, "out_",fname),
+                        width =  points_master[points_master$file_name == fname,"size_x"][1],
+                        height = points_master[points_master$file_name == fname,"size_y"][1],
+                        quality = 100)
+    }
 
     graphics::plot(image)
-    graphics::lines(c(points_boxed$x_left, points_boxed$x_left),
-          c(size_y - points_boxed$y_top, size_y - points_boxed$y_bottom),lwd = 2,  col=color)
-    graphics::lines(c(points_boxed$x_right, points_boxed$x_right),
-          c(size_y - points_boxed$y_top, size_y - points_boxed$y_bottom),lwd = 2,  col=color)
-    graphics::lines(c(points_boxed$x_left, points_boxed$x_right),
-          c(size_y - points_boxed$y_top, size_y - points_boxed$y_top),lwd = 2,  col=color)
-    graphics::lines(c(points_boxed$x_left, points_boxed$x_right),
-          c(size_y - points_boxed$y_bottom, size_y - points_boxed$y_bottom),lwd = 2,  col=color)
-    graphics::text(x = (points_boxed$x_left + points_boxed$x_right)/2, y = (size_y - points_boxed$y_top + 5),
-         label = lab, col = color)
+
+    for (n in 1:nrow(points_boxed)){
+
+        lab <- ifelse(show_classifier == TRUE, points_boxed$classifier[n], "")
+
+        graphics::lines(c(points_boxed$x_left[n], points_boxed$x_left[n]),
+                        c(points_boxed$size_y[n] - points_boxed$y_top[n], points_boxed$size_y[n] - points_boxed$y_bottom[n]),
+                        lwd = (points_boxed$size_x[n]/360),  col = points_boxed$color[n])
+        graphics::lines(c(points_boxed$x_right[n], points_boxed$x_right[n]),
+                        c(points_boxed$size_y[n] - points_boxed$y_top[n], points_boxed$size_y[n] - points_boxed$y_bottom[n]),
+                        lwd = (points_boxed$size_x[n]/360),  col = points_boxed$color[n])
+        graphics::lines(c(points_boxed$x_left[n], points_boxed$x_right[n]),
+                        c(points_boxed$size_y[n] - points_boxed$y_top[n], points_boxed$size_y[n] - points_boxed$y_top[n]),
+                        lwd = (points_boxed$size_x[n]/360),  col = points_boxed$color[n])
+        graphics::lines(c(points_boxed$x_left[n], points_boxed$x_right[n]),
+                        c(points_boxed$size_y[n] - points_boxed$y_bottom[n], points_boxed$size_y[n] - points_boxed$y_bottom[n]),
+                        lwd = (points_boxed$size_x[n]/360),  col = points_boxed$color[n])
+        graphics::text(x = (points_boxed$x_left[n] + points_boxed$x_right[n])/2, y = (points_boxed$size_y[n] - points_boxed$y_top[n] + 5),
+                       label = lab, col = points_boxed$color[n], cex = (points_boxed$size_x[n]/360))
+    }
+
     grDevices::dev.off()
 
+
+    }
+    print(paste0("Files created in ", file_path_output))
 }
+
+
+
