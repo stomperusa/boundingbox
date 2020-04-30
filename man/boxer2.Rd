@@ -2,78 +2,98 @@
 % Please edit documentation in R/boxer2.R
 \name{boxer2}
 \alias{boxer2}
-\title{Create a bounding box in an image based on selected points}
+\title{Create multiple bounding boxes in an image based on sets of selected points}
 \usage{
-boxer2(names, file_path_input, resize_x = NA, resize_y = NA,
-  batch = length(names), classifier = classifier, color = "red",
-  outpics = F, file_path_output = NA, show_classifier = F)
+boxer2(names, file_path_input, color = "red", resize_x = NA,
+  resize_y = NA, classifier, batch = length(names), outpics = F,
+  file_path_output = NA, show_classifier = F)
 }
 \arguments{
-\item{names}{A list that contains the names of JPG, PNG, or BMP image files.}
+\item{names}{A vector that contains the names of JPG, PNG, or BMP image files.}
 
 \item{file_path_input}{The directory that contains the image files.}
+
+\item{color}{The name of the color for selected points.Default is "red".}
+
+\item{resize_x}{Number of pixels to resize the x-axis. Default is NA to keep
+original size.}
+
+\item{resize_y}{Number of pixels to resize the y-axis. Default is NA to keep
+original size.}
+
+\item{classifier}{A data frame with columns "ref" (integer), "class" (factor),
+and "color" (factor). The "ref" value must be unique. "class" will appear as
+the label, and "color" will be used as the color of the bounding box.}
 
 \item{batch}{Number of images before prompt to truncate stream. Default is
 length(names).}
 
-\item{classifier}{Character string to add a classifier to output. Default is
-NA.}
+\item{outpics}{Logical to run createBox and output images. Default is F.}
 
-\item{color}{The color of the bounding box. Default is "red".}
-
-\item{file_path_output}{The directory where to save annotated images.}
+\item{file_path_output}{The directory where to save annotated images if
+outpics is T.}
 
 \item{show_classifier}{Logical to include the classifier above the bounding
-box. Default is F.}
-
-\item{size_x}{Number of columns to resize the x-axis. Default is NA for no
-change.}
-
-\item{size_y}{Number of columns to resize the y-axis. Default is NA for no
-change.}
+box if outpics is T. Default is F.}
 }
 \value{
 A dataframe with the bounding box coordinates for each image, and a
  new image file with the bounding box annotation for each of the images
- processed. The name of each output image file will be the same as the
- corresponding input file prefixed with "out_".
+ processed. Note the y-coordinate extends downward, not upward.The name of
+ each output image file will be the same as the corresponding input file
+ prefixed with "out_".
 }
 \description{
-\code{boxer} allows the user to identify an area in an image around which to
-generate a bounding box.
+\code{boxer2} allows the user to identify multiple areas in an image around
+which to generate bounding boxes and/or the ability to set a classifier per
+bounding box.
 }
 \details{
-Stream a series of images (JPEG, PNG, BMP) from a directory. As each image
-appears, indicate between 2 and 26 points. A bounding box will be generated
-based on the max/min x and y values of the selected coordinates. There are two
-outputs. One is a dataframe with the name of the original image, the
-coordinates of the bounding box and the classifier. Another is, for each
-image, an image file annotated with the bounding box, the classifier printed
-above the bounding box if show_classifier is set to TRUE, and resized if either
-the size_x or size_y parameter is given.
+Input a dataframe that captures reference information regarding the
+classifiers. This includes a numeric reference, class (or name), and color.
+Then stream a series of images (JPEG, PNG, BMP) from a directory. As each
+image appears, indicate between 2 and 26 points around which boxer2 will
+calculate a bounding box. Follow the prompt to provide the numeric reference
+for the classifier. The next prompt allows to add another bounding box to the
+same image or to advance to the next image.
 
-When an image appears, use the left mouse button to select a point, and the
-right mouse button to signal completion and to move to the next image. At
-least two points must be selected to record a bounding box. If more than 26
-points are selected, only the first 26 will be used. At the completion of each
-image, a file of the image with the bounding box will be output. If you do not
-want to create a bounding box the image currently shown, select the right mouse
-button without selecting any points. A warning message will be printed at the
-end for each image skipped.
+The name of the original file, bounding box coordinates, classifiers, box
+colors, and optional image resize values are returned in a dataframe. Boxer2
+also offers the option to call the createBox function that will output each
+image with its bounding box(es). If outputting the images, the show_classifier
+parameter controls whether or not to show the class as a label above the
+bounding box.
+
+When an image appears, use the left mouse button to select the series of
+points, and the right mouse button to signal completion and to move to the
+next image. At least two points must be selected to record a bounding box. If
+more than 26 points are selected, only the first 26 will be used. To skip
+creating a bounding box for the current image, select the right mouse button
+without selecting any points. Messages noting the images skipped will appear
+at the end.
 
 The dataframe of bounding box coordinates will only be returned when all of
-the images have been cycled through unless the stream is truncated at the
-batch prompt.  The batch paramater can be set for the number of images to
-cycle through before the user is prompted to truncate the stream. Selecting
-"y" at the prompt will truncate the stream and return the bounding box
-coordinates for all of the images up to that point. Selecting any other key
-will continue to stream through the next batch of images.
+the images have been cycled through, unless you set the batch parameter.  The
+batch parameter allows for the images to be processed in batches with the
+option to terminate and generate the output file at the end of each batch. The
+batch paramater can be set for the number of images to cycle through before
+the user is prompted to truncate the stream. Selecting "y" at the prompt will
+truncate the stream and return the bounding box coordinates for all of the
+images up to that point. Selecting any other key will continue to stream
+through the next batch of images.
+
+If all of the images have the same classifier and only one bounding box is
+required per image, consider using the boxer function instead.
 }
 \examples{
 \dontrun{
-boxer(names = c("dog_pic1.jpg", "dog_pic2.jpg"),
-file_path_input = "/dog_pics/input/", file_path_output = "/dog_pics/output/",
-size_x = 224, size_y = 224, classifier = "dog", show_classifier = T)
+dog_df <- data.frame(ref = (1:2), class = c("Skip", "Waltz"),
+color = c("red","yellow"))
+
+boxer2(names = c("dog_pic1.jpg", "dog_pic2.jpg"),
+file_path_input = "/dog_pics/input/", size_x = 224, size_y = 224,
+classifier = dog_df, outpics = T, file_path_output = "/dog_pics/output/",
+show_classifier = T)
 }
 
 }

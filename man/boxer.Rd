@@ -9,71 +9,82 @@ boxer(names, file_path_input, color = "red", resize_x = NA,
   outpics = F, file_path_output = NA, show_classifier = F)
 }
 \arguments{
-\item{names}{A list that contains the names of JPG, PNG, or BMP image files.}
+\item{names}{A vector that contains the names of JPG, PNG, or BMP image files.}
 
 \item{file_path_input}{The directory that contains the image files.}
 
-\item{color}{The color of the bounding box. Default is "red".}
+\item{color}{The name of the color for selected points  and the bounding box.
+Default is "red".}
 
-\item{classifier}{Character string to add a classifier to output. Default is
-NA.}
+\item{resize_x}{Number of pixels to resize the x-axis. Default is NA to keep
+original size.}
+
+\item{resize_y}{Number of pixels to resize the y-axis. Default is NA to keep
+original size.}
+
+\item{classifier}{Character string to add a classifier. Default is NA.}
 
 \item{batch}{Number of images before prompt to truncate stream. Default is
 length(names).}
 
-\item{file_path_output}{The directory where to save annotated images.}
+\item{outpics}{Logical to run createBox and output images. Default is F.}
+
+\item{file_path_output}{The directory where to save annotated images if
+outpics is T.}
 
 \item{show_classifier}{Logical to include the classifier above the bounding
-box. Default is F.}
-
-\item{size_x}{Number of columns to resize the x-axis. Default is NA for no
-change.}
-
-\item{size_y}{Number of columns to resize the y-axis. Default is NA for no
-change.}
+box if outpics is T. Default is F.}
 }
 \value{
-A dataframe with the bounding box coordinates for each image, and a
+A dataframe with the bounding box coordinates and classifier for each
+ image. Note the y-coordinate extends downward, not upward. Will also output
  new image file with the bounding box annotation for each of the images
- processed. The name of each output image file will be the same as the
- corresponding input file prefixed with "out_".
+ processed if outpics it set to T. The name of each output image file will be
+ the same as the corresponding input file prefixed with "out_".
 }
 \description{
 \code{boxer} allows the user to identify an area in an image around which to
-generate a bounding box.
+generate a bounding box and set a common classifier for all images.
 }
 \details{
 Stream a series of images (JPEG, PNG, BMP) from a directory. As each image
-appears, indicate between 2 and 26 points. A bounding box will be generated
-based on the max/min x and y values of the selected coordinates. There are two
-outputs. One is a dataframe with the name of the original image, the
-coordinates of the bounding box and the classifier. Another is, for each
-image, an image file annotated with the bounding box, the classifier printed
-above the bounding box if show_classifier is set to TRUE, and resized if either
-the size_x or size_y parameter is given.
+appears, indicate between 2 and 26 points around which boxer will calculate a
+bounding box. The name of the original file, the bounding box coordinates, and
+optional image resize values, classifier and box color are returned in a
+dataframe. Boxer also offers the option to call the createBox function that
+will output each image with its bounding box. If outputting the images, the
+show_classifier parameter controls whether or not to show the class as a label
+above the bounding box.
 
-When an image appears, use the left mouse button to select a point, and the
-right mouse button to signal completion and to move to the next image. At
-least two points must be selected to record a bounding box. If more than 26
-points are selected, only the first 26 will be used. At the completion of each
-image, a file of the image with the bounding box will be output. If you do not
-want to create a bounding box the image currently shown, select the right mouse
-button without selecting any points. A warning message will be printed at the
-end for each image skipped.
+When an image appears, use the left mouse button to select the series of
+points, and the right mouse button to signal completion and to move to the
+next image. At least two points must be selected to record a bounding box. If
+more than 26 points are selected, only the first 26 will be used. To skip
+creating a bounding box for the current image, select the right mouse button
+without selecting any points. Messages noting the images skipped will appear
+at the end.
 
 The dataframe of bounding box coordinates will only be returned when all of
-the images have been cycled through unless the stream is truncated at the
-batch prompt.  The batch paramater can be set for the number of images to
-cycle through before the user is prompted to truncate the stream. Selecting
-"y" at the prompt will truncate the stream and return the bounding box
-coordinates for all of the images up to that point. Selecting any other key
-will continue to stream through the next batch of images.
+the images have been cycled through, unless you set the batch parameter.  The
+batch parameter allows for the images to be processed in batches with the
+option to terminate and generate the output file at the end of each batch. The
+batch paramater can be set for the number of images to cycle through before
+the user is prompted to truncate the stream. Selecting "y" at the prompt will
+truncate the stream and return the bounding box coordinates for all of the
+images up to that point. Selecting any other key will continue to stream
+through the next batch of images.
+
+If using the classifier and color parameters, boxer assumes all of the images
+are classified the same. To be able to set the classifier per bounding box, or
+to be able to generate multiple bounding boxes per image, use the boxer2
+function.
 }
 \examples{
 \dontrun{
 boxer(names = c("dog_pic1.jpg", "dog_pic2.jpg"),
-file_path_input = "/dog_pics/input/", file_path_output = "/dog_pics/output/",
-size_x = 224, size_y = 224, classifier = "dog", show_classifier = T)
+file_path_input = "/dog_pics/input/", size_x = 224, size_y = 224,
+classifier = "dog", outpics = T, file_path_output = "/dog_pics/output/",
+show_classifier = T)
 }
 
 }
