@@ -3,7 +3,7 @@
 boundingbox
 ===========
 
-Select points on an image to generate a bounding box.
+Select points or sets of points on an image to generate bounding boxes.
 
 Installation
 ------------
@@ -17,34 +17,55 @@ library(devtools)
 install_github("stomperusa/boundingbox")
 ```
 
-Example
--------
+Examples
+--------
 
-The **boxer** function allows you to stream through images and select between 2 and 26 points around which a bounding box is generated.
+The **boxer** function allows you to stream through images and select between 2 and 26 points around which a bounding box is generated in each image. You can set a common classifier for all of the images.
 
 ``` r
-box_coords <- boxer(names = c("dog_pic1.jpg", "dog_pic2.jpg"), file_path_input = "/dog_pics/input/", 
-                    file_path_output = "/dog_pics/output/", classifier = "dog", show_classifier = T)
+box_coords <- boxer(names = c("dog1.jpg", "dog2.jpg"), file_path_input = "/dog_pics/input/", 
+                    file_path_output = "/dog_pics/output/", classifier = "dog", show_classifier = T,
+                    resize_x = 224, resize_y = 224, outpics = T)
 ```
 
-When an image appears, use the left mouse button to select a point, and the right mouse button to signal completion and to move to the next image. To skip through any of the images, use the right mouse button prior to selecting any points with the left button. If the selected point goes out of the bounds of the image, the x and/or y coordinate is adjusted to bring the point back into bounds. Specifically, it is adjusted to the nearest set of coordinates on the inside edge of the image.
+When an image appears, use the left mouse button to select a point, and the right mouse button to signal completion and to move to the next image. To skip through any of the images, use the right mouse button prior to selecting any points with the left button. If the selected point goes out of the bounds of the image, the x and/or y coordinate is adjusted to the nearest set of coordinates on the inside edge of the image.
 
-Here is the first image with multiple points selected.
+Here is a screen shot of the first image with multiple points selected.
 
-![An image with multiple points selected](tools/README-input-1.jpg)
+<img src="tools/README-input-1.jpg" width="500px" />
 
-This is the output file generated with a bounding box based on the selected points. ![The image with bounding box based on selected points.](tools/README-output-1.jpg)
+This is the output file generated with a bounding box based on the selected points. <img src="tools/README-output-1.jpg" width="500px" />
 
-Here is the second streamed image with two points selected. ![An image with 2 points selected](tools/README-input-2.jpg)
+Here is a screen shot of the second streamed image with two points selected. <img src="tools/README-input-2.jpg" width="500px" />
 
-This is the second output file generated with a bounding box based on the selected points. ![The second image with bounding box based on selected points.](tools/README-output-2.jpg)
+This is the second output file generated with a bounding box based on the selected points. <img src="tools/README-output-2.jpg" width="500px" />
 
-The resulting data frame will have the bounding box coordinates and the classifier for each of the images. Note that the y-axis starts in the upper left corner when working with images.
+The resulting data frame will have the bounding box coordinates, the classifier, the image width and height, and box color for each of the images. Note that the y-coordinate extends from the top down, instead of the bottom up for these images.
 
 box\_coords
 
-    #>      file_name x_left y_top x_right y_bottom classifier
-    #> 1 dog_pic1.jpg     19     9     201      223        dog
-    #> 2 dog_pic2.jpg     41     5     149      216        dog
+    #>   file_name x_left y_top x_right y_bottom size_x size_y classifier color
+    #> 1  dog1.jpg     19     9     201      223    224    224        dog   red
+    #> 2  dog2.jpg     41     5     149      216    224    224        dog   red
 
-If you have a large number of images to stream through, consider using the batch parameter which will prompt you to truncate the stream at the fixed interval you set. Otherwise if you are in the middle of the stream and do not want to continue you have two options. One is to right mouse click your way through each image until you skip through the remaining ones. You will then get the output of coordinates at the end. The other alternative is to force close the image viewer (for example, X Windows System) in which case the function will not complete and the coordinates for the generated bounding boxes will not be available.
+If there is a large number of images to stream through, consider using the batch parameter which will give an option to truncate the stream at the fixed interval set. Otherwise if in the middle of the stream and do not want to continue, there are two options. One is to right mouse click to skip through the remaining images. The dataframe of coordinates will be produced at the end. The other alternative is to force close the image viewer (for example, X Windows System) in which case the function will not complete and the coordinates for the generated bounding boxes will not be produced.
+
+The **boxer2** function streams images for point capture in the same way as **boxer** does, however it provides the options to add multiple bounding boxes per image, and to select separate classifiers per bounding box. As input, it requires a data frame that defines the classifiers that will be used. You will be prompted to provide the classifier ref \# for each of the boxes.
+
+``` r
+dog_df <- data.frame(ref = (1:2), class = c("Skip", "Waltz"), color = c("red","yellow"), stringsAsFactors = F)
+
+box_coords2 <- boxer2(names = c("SW1.png"), file_path_input = "/dog_pics/input/", 
+                    file_path_output = "/dog_pics/output/", classifier = dog_df, show_classifier = T,
+                    outpics = T)
+```
+
+Here is an example of output from the boxer2 function. <img src="tools/README-output-3.png" width="500px" />
+
+box\_coords2
+
+    #>   file_name x_left y_top x_right y_bottom size_x size_y classifier  color
+    #> 1   SW1.png      0     9     122      110    286    320      Waltz yellow
+    #> 2   SW1.png    157   123     284      245    286    320       Skip    red
+
+Note with both functions it is possible to output just the data frame with bounding box coordinates and not the output images by using the default **outpics = F** setting. You can separately produce the image files by feeding a data frame with bounding box coordinates to the **createBox** function.

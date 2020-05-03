@@ -21,8 +21,8 @@ original size.}
 \item{resize_y}{Number of pixels to resize the y-axis. Default is NA to keep
 original size.}
 
-\item{classifier}{A data frame with columns "ref" (integer), "class" (factor),
-and "color" (factor). The "ref" value must be unique. "class" will appear as
+\item{classifier}{A data frame with columns "ref" (int), "class" (chr),
+and "color" (chr). The "ref" value must be unique. "class" will appear as
 the label, and "color" will be used as the color of the bounding box.}
 
 \item{batch}{Number of images before prompt to truncate stream. Default is
@@ -88,7 +88,7 @@ required per image, consider using the boxer function instead.
 \examples{
 \dontrun{
 dog_df <- data.frame(ref = (1:2), class = c("Skip", "Waltz"),
-color = c("red","yellow"))
+color = c("red","yellow"), stringsAsFactors = F)
 
 boxer2(names = c("dog_pic1.jpg", "dog_pic2.jpg"),
 file_path_input = "/dog_pics/input/", size_x = 224, size_y = 224,

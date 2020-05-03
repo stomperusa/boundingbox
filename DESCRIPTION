@@ -1,14 +1,15 @@
 Package: boundingbox
 Type: Package
 Title: Create a Bounding Box in an Image
-Version: 0.2.0
+Version: 1.0.0
 Authors@R: person("David", "Stomski", email = "stomperusa@verizon.net", 
     role = c("aut", "cre"))
 Description: Cycle through a list of images. Select between 2 and 26 points on 
     an image. The boxer() function will output the image with a bounding box based 
     on the max/min coordinates and a dataframe of the coordinates. Also allows
-    to resize the image, change the box color, add a classifier to the dataframe
-    and to the image.
+    to resize the image, change the box color, add a common classifier to the 
+    dataframe and to the image. boxer2() allows for multiple bounding boxes per 
+    image, and to select a classifier per bounding box.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
