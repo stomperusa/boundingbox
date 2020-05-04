@@ -1,6 +1,6 @@
 #'Generate images with bounding boxes from coordinates in a dataframe
 #'
-#'\code{createBox} adds colored bounding boxes and labels to images based on
+#'\code{outBox} adds colored bounding boxes and labels to images based on
 #'predetermined coordinates, classifiers, and image dimensions captured in a
 #'dataframe.
 #'
@@ -46,17 +46,17 @@
 #'color = c("red", "yellow")
 #')
 #'
-#'createBox(points_master = points_master, file_path_input = "/dog_pics/input/",
+#'outBox(points_master = points_master, file_path_input = "/dog_pics/input/",
 #'file_path_output = "/dog_pics/output/", show_classifier = T)
 #'}
 #'
 #'@export
-createBox <- function(points_master, file_path_input, file_path_output, show_classifier = F){
+outBox <- function(points_master, file_path_input, file_path_output, show_classifier = F){
 
     # run checks to validate parameters
     checks <- c(12:15, 2:4)
     paramCheck(names = points_master$file_name, file_path_input = file_path_input, color = NA,
-               outpics = T, file_path_output = file_path_output, checks = checks,
+               outbox = T, file_path_output = file_path_output, checks = checks,
                points_master = points_master)
 
     for (fname in points_master$file_name){

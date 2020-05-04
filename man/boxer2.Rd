@@ -5,7 +5,7 @@
 \title{Create multiple bounding boxes in an image based on sets of selected points}
 \usage{
 boxer2(names, file_path_input, color = "red", resize_x = NA,
-  resize_y = NA, classifier, batch = length(names), outpics = F,
+  resize_y = NA, classifier, batch = length(names), outbox = F,
   file_path_output = NA, show_classifier = F)
 }
 \arguments{
@@ -28,13 +28,13 @@ the label, and "color" will be used as the color of the bounding box.}
 \item{batch}{Number of images before prompt to truncate stream. Default is
 length(names).}
 
-\item{outpics}{Logical to run createBox and output images. Default is F.}
+\item{outbox}{Logical to run outBox and output images. Default is F.}
 
 \item{file_path_output}{The directory where to save annotated images if
-outpics is T.}
+outbox is T.}
 
 \item{show_classifier}{Logical to include the classifier above the bounding
-box if outpics is T. Default is F.}
+box if outbox is T. Default is F.}
 }
 \value{
 A dataframe with the bounding box coordinates for each image, and a
@@ -59,7 +59,7 @@ same image or to advance to the next image.
 
 The name of the original file, bounding box coordinates, classifiers, box
 colors, and optional image resize values are returned in a dataframe. Boxer2
-also offers the option to call the createBox function that will output each
+also offers the option to call the outBox function that will output each
 image with its bounding box(es). If outputting the images, the show_classifier
 parameter controls whether or not to show the class as a label above the
 bounding box.
@@ -76,7 +76,7 @@ The dataframe of bounding box coordinates will only be returned when all of
 the images have been cycled through, unless you set the batch parameter.  The
 batch parameter allows for the images to be processed in batches with the
 option to terminate and generate the output file at the end of each batch. The
-batch paramater can be set for the number of images to cycle through before
+batch parameter can be set for the number of images to cycle through before
 the user is prompted to truncate the stream. Selecting "y" at the prompt will
 truncate the stream and return the bounding box coordinates for all of the
 images up to that point. Selecting any other key will continue to stream
@@ -92,7 +92,7 @@ color = c("red","yellow"), stringsAsFactors = F)
 
 boxer2(names = c("dog_pic1.jpg", "dog_pic2.jpg"),
 file_path_input = "/dog_pics/input/", size_x = 224, size_y = 224,
-classifier = dog_df, outpics = T, file_path_output = "/dog_pics/output/",
+classifier = dog_df, outbox = T, file_path_output = "/dog_pics/output/",
 show_classifier = T)
 }
 

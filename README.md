@@ -25,12 +25,12 @@ The **boxer** function allows you to stream through images and select between 2 
 ``` r
 box_coords <- boxer(names = c("dog1.jpg", "dog2.jpg"), file_path_input = "/dog_pics/input/", 
                     file_path_output = "/dog_pics/output/", classifier = "dog", show_classifier = T,
-                    resize_x = 224, resize_y = 224, outpics = T)
+                    resize_x = 224, resize_y = 224, outbox = T)
 ```
 
 When an image appears, use the left mouse button to select a point, and the right mouse button to signal completion and to move to the next image. To skip through any of the images, use the right mouse button prior to selecting any points with the left button. If the selected point goes out of the bounds of the image, the x and/or y coordinate is adjusted to the nearest set of coordinates on the inside edge of the image.
 
-Here is a screen shot of the first image with multiple points selected.
+Here is a screen shot of the first image with several points selected.
 
 <img src="tools/README-input-1.jpg" width="500px" />
 
@@ -57,7 +57,7 @@ dog_df <- data.frame(ref = (1:2), class = c("Skip", "Waltz"), color = c("red","y
 
 box_coords2 <- boxer2(names = c("SW1.png"), file_path_input = "/dog_pics/input/", 
                     file_path_output = "/dog_pics/output/", classifier = dog_df, show_classifier = T,
-                    outpics = T)
+                    outbox = T)
 ```
 
 Here is an example of output from the boxer2 function. <img src="tools/README-output-3.png" width="500px" />
@@ -68,4 +68,4 @@ box\_coords2
     #> 1   SW1.png      0     9     122      110    286    320      Waltz yellow
     #> 2   SW1.png    157   123     284      245    286    320       Skip    red
 
-Note with both functions it is possible to output just the data frame with bounding box coordinates and not the output images by using the default **outpics = F** setting. You can separately produce the image files by feeding a data frame with bounding box coordinates to the **createBox** function.
+Note with both functions it is possible to output just the data frame with bounding box coordinates and not the output images by using the default **outbox = F** setting. You can separately produce the image files by feeding a data frame with bounding box coordinates to the **outBox** function.

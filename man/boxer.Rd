@@ -6,7 +6,7 @@
 \usage{
 boxer(names, file_path_input, color = "red", resize_x = NA,
   resize_y = NA, classifier = NA, batch = length(names),
-  outpics = F, file_path_output = NA, show_classifier = F)
+  outbox = F, file_path_output = NA, show_classifier = F)
 }
 \arguments{
 \item{names}{A vector that contains the names of JPG, PNG, or BMP image files.}
@@ -27,19 +27,19 @@ original size.}
 \item{batch}{Number of images before prompt to truncate stream. Default is
 length(names).}
 
-\item{outpics}{Logical to run createBox and output images. Default is F.}
+\item{outbox}{Logical to run outBox and output images. Default is F.}
 
 \item{file_path_output}{The directory where to save annotated images if
-outpics is T.}
+outbox is T.}
 
 \item{show_classifier}{Logical to include the classifier above the bounding
-box if outpics is T. Default is F.}
+box if outbox is T. Default is F.}
 }
 \value{
 A dataframe with the bounding box coordinates and classifier for each
  image. Note the y-coordinate extends downward, not upward. Will also output
  new image file with the bounding box annotation for each of the images
- processed if outpics it set to T. The name of each output image file will be
+ processed if outbox is set to T. The name of each output image file will be
  the same as the corresponding input file prefixed with "out_".
 }
 \description{
@@ -51,7 +51,7 @@ Stream a series of images (JPEG, PNG, BMP) from a directory. As each image
 appears, indicate between 2 and 26 points around which boxer will calculate a
 bounding box. The name of the original file, the bounding box coordinates, and
 optional image resize values, classifier and box color are returned in a
-dataframe. Boxer also offers the option to call the createBox function that
+dataframe. Boxer also offers the option to call the outBox function that
 will output each image with its bounding box. If outputting the images, the
 show_classifier parameter controls whether or not to show the class as a label
 above the bounding box.
@@ -68,7 +68,7 @@ The dataframe of bounding box coordinates will only be returned when all of
 the images have been cycled through, unless you set the batch parameter.  The
 batch parameter allows for the images to be processed in batches with the
 option to terminate and generate the output file at the end of each batch. The
-batch paramater can be set for the number of images to cycle through before
+batch parameter can be set for the number of images to cycle through before
 the user is prompted to truncate the stream. Selecting "y" at the prompt will
 truncate the stream and return the bounding box coordinates for all of the
 images up to that point. Selecting any other key will continue to stream
@@ -83,7 +83,7 @@ function.
 \dontrun{
 boxer(names = c("dog_pic1.jpg", "dog_pic2.jpg"),
 file_path_input = "/dog_pics/input/", size_x = 224, size_y = 224,
-classifier = "dog", outpics = T, file_path_output = "/dog_pics/output/",
+classifier = "dog", outbox = T, file_path_output = "/dog_pics/output/",
 show_classifier = T)
 }
 

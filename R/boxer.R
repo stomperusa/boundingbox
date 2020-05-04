@@ -7,7 +7,7 @@
 #'appears, indicate between 2 and 26 points around which boxer will calculate a
 #'bounding box. The name of the original file, the bounding box coordinates, and
 #'optional image resize values, classifier and box color are returned in a
-#'dataframe. Boxer also offers the option to call the createBox function that
+#'dataframe. Boxer also offers the option to call the outBox function that
 #'will output each image with its bounding box. If outputting the images, the
 #'show_classifier parameter controls whether or not to show the class as a label
 #'above the bounding box.
@@ -24,7 +24,7 @@
 #'the images have been cycled through, unless you set the batch parameter.  The
 #'batch parameter allows for the images to be processed in batches with the
 #'option to terminate and generate the output file at the end of each batch. The
-#'batch paramater can be set for the number of images to cycle through before
+#'batch parameter can be set for the number of images to cycle through before
 #'the user is prompted to truncate the stream. Selecting "y" at the prompt will
 #'truncate the stream and return the bounding box coordinates for all of the
 #'images up to that point. Selecting any other key will continue to stream
@@ -46,35 +46,35 @@
 #'@param classifier Character string to add a classifier. Default is NA.
 #'@param batch Number of images before prompt to truncate stream. Default is
 #'  length(names).
-#'@param outpics Logical to run createBox and output images. Default is F.
+#'@param outbox Logical to run outBox and output images. Default is F.
 #'@param file_path_output The directory where to save annotated images if
-#'  outpics is T.
+#'  outbox is T.
 #'@param show_classifier Logical to include the classifier above the bounding
-#'  box if outpics is T. Default is F.
+#'  box if outbox is T. Default is F.
 #'
 #'@return A dataframe with the bounding box coordinates and classifier for each
 #'  image. Note the y-coordinate extends downward, not upward. Will also output
 #'  new image file with the bounding box annotation for each of the images
-#'  processed if outpics it set to T. The name of each output image file will be
+#'  processed if outbox is set to T. The name of each output image file will be
 #'  the same as the corresponding input file prefixed with "out_".
 #'
 #' @examples
 #' \dontrun{
 #' boxer(names = c("dog_pic1.jpg", "dog_pic2.jpg"),
 #' file_path_input = "/dog_pics/input/", size_x = 224, size_y = 224,
-#' classifier = "dog", outpics = T, file_path_output = "/dog_pics/output/",
+#' classifier = "dog", outbox = T, file_path_output = "/dog_pics/output/",
 #' show_classifier = T)
 #' }
 #'
 #'@export
 boxer <- function(names, file_path_input, color = "red", resize_x = NA, resize_y = NA,
                   classifier = NA,  batch = length(names),
-                  outpics = F, file_path_output = NA, show_classifier = F) {
+                  outbox = F, file_path_output = NA, show_classifier = F) {
 
     # run checks to validate parameters
     checks <- c(1:5)
     paramCheck(names = names, file_path_input = file_path_input, color = color,
-               outpics = outpics, file_path_output = file_path_output, checks = checks)
+               outbox = outbox, file_path_output = file_path_output, checks = checks)
 
 
     # empty data frame used to capture bounding box coorindates
@@ -134,7 +134,7 @@ boxer <- function(names, file_path_input, color = "red", resize_x = NA, resize_y
     points_master$color <- color
 
     # generate output images
-    if(outpics == T) {createBox(points_master = points_master, file_path_input = file_path_input,
+    if(outbox == T) {outBox(points_master = points_master, file_path_input = file_path_input,
                                 file_path_output = file_path_output, show_classifier = show_classifier)}
 
     return(points_master)
