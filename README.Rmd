@@ -84,6 +84,7 @@ box_coords2 <- boxer2(names = c("SW1.png"), file_path_input = "/dog_pics/input/"
 ```
 
 Here is an example of output from the boxer2 function.
+
 ```{r, echo = FALSE, out.width = "500px"}
 knitr::include_graphics("tools/README-output-3.png")
 ```

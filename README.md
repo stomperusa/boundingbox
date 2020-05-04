@@ -60,7 +60,9 @@ box_coords2 <- boxer2(names = c("SW1.png"), file_path_input = "/dog_pics/input/"
                     outbox = T)
 ```
 
-Here is an example of output from the boxer2 function. <img src="tools/README-output-3.png" width="500px" />
+Here is an example of output from the boxer2 function.
+
+<img src="tools/README-output-3.png" width="500px" />
 
 box\_coords2
 
