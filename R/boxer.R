@@ -86,8 +86,8 @@ boxer <- function(names, file_path_input, color = "red", resize_x = NA, resize_y
 
         # offer User to breakout out of the loop
         if((n - 1 != 0) & ((n - 1) %% batch == 0)){
-            response <- readline(prompt = "Enter 'y' if you want to truncate the stream or any other key to continue.")
-            if(response == "y"){
+            response <- as.numeric(readline(prompt = "Enter 1 if you want to truncate the stream or any other key to continue."))
+            if(response == 1){
                 break
             }
         }
