@@ -71,3 +71,6 @@ box\_coords2
     #> 2   SW1.png    157   123     284      245    286    320       Skip    red
 
 Note with both functions it is possible to output just the data frame with bounding box coordinates and not the output images by using the default **outbox = F** setting. You can separately produce the image files by feeding a data frame with bounding box coordinates to the **outBox** function.
+
+<!-- badges: start -->
+[![Travis build status](https://travis-ci.com/stomperusa/boundingbox.svg?branch=master)](https://travis-ci.com/stomperusa/boundingbox) <!-- badges: end -->

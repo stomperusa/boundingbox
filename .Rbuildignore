@@ -5,3 +5,4 @@
 ^README-.*\.jpg$
 ^README-.*\.png$
 ^.*\.pdf$
+^\.travis\.yml$
