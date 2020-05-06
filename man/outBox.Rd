@@ -4,8 +4,7 @@
 \alias{outBox}
 \title{Generate images with bounding boxes from coordinates in a dataframe}
 \usage{
-outBox(points_master, file_path_input, file_path_output,
-  show_classifier = F)
+outBox(points_master, file_path_input, file_path_output, show_classifier = F)
 }
 \arguments{
 \item{points_master}{A dataframe that captures the name of the image file,

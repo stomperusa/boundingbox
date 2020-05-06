@@ -6,3 +6,4 @@
 ^README-.*\.png$
 ^.*\.pdf$
 ^\.travis\.yml$
+^cran-comments\.md$

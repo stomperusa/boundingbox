@@ -4,9 +4,18 @@
 \alias{boxer}
 \title{Create a bounding box in an image based on selected points}
 \usage{
-boxer(names, file_path_input, color = "red", resize_x = NA,
-  resize_y = NA, classifier = NA, batch = length(names),
-  outbox = F, file_path_output = NA, show_classifier = F)
+boxer(
+  names,
+  file_path_input,
+  color = "red",
+  resize_x = NA,
+  resize_y = NA,
+  classifier = NA,
+  batch = length(names),
+  outbox = F,
+  file_path_output = NA,
+  show_classifier = F
+)
 }
 \arguments{
 \item{names}{A vector that contains the names of JPG, PNG, or BMP image files.}

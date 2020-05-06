@@ -4,9 +4,18 @@
 \alias{boxer2}
 \title{Create multiple bounding boxes in an image based on sets of selected points}
 \usage{
-boxer2(names, file_path_input, color = "red", resize_x = NA,
-  resize_y = NA, classifier, batch = length(names), outbox = F,
-  file_path_output = NA, show_classifier = F)
+boxer2(
+  names,
+  file_path_input,
+  color = "red",
+  resize_x = NA,
+  resize_y = NA,
+  classifier,
+  batch = length(names),
+  outbox = F,
+  file_path_output = NA,
+  show_classifier = F
+)
 }
 \arguments{
 \item{names}{A vector that contains the names of JPG, PNG, or BMP image files.}
