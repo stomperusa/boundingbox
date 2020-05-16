@@ -3,7 +3,7 @@ capturePoints <- function(n, file_path_input, names, resize_x , resize_y, color)
 
     #PREPARE THE IMAGE
     fname <- names[n]
-    img_path <- paste0(file_path_input,fname)
+    img_path <- file.path(file_path_input,fname)
     img <- imager::load.image(img_path)
     size_x <- ifelse(is.na(resize_x), dim(img)[1], resize_x)
     size_y <- ifelse(is.na(resize_y), dim(img)[2], resize_y)

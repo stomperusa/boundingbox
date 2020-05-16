@@ -66,15 +66,16 @@
 #'  prefixed with "out_".
 #'
 #' @examples
-#' \dontrun{
-#' dog_df <- data.frame(ref = (1:2), class = c("Skip", "Waltz"),
-#' color = c("red","yellow"), stringsAsFactors = F)
+#' # A sample classifier dataframe
+#' dog_df <- data.frame(read.csv(system.file("extdata","dog_df.csv",
+#' package = "boundingbox")), stringsAsFactors = F)
 #'
-#' boxer2(names = c("dog_pic1.jpg", "dog_pic2.jpg"),
-#' file_path_input = "/dog_pics/input/", size_x = 224, size_y = 224,
-#' classifier = dog_df, outbox = T, file_path_output = "/dog_pics/output/",
-#' show_classifier = T)
-#' }
+#' # Use 1 to classify the first dog and 2 to classify the second.
+#'\dontrun{
+#' boxer2_results <- boxer2(names = c("SW1.jpg"),
+#' file_path_input = system.file("extdata", package = "boundingbox"),
+#' resize_x = 224, resize_y = 224, classifier = dog_df, outbox = F)
+#'}
 #'
 #'@export
 boxer2 <- function(names, file_path_input, color = "red", resize_x = NA, resize_y = NA,
@@ -149,7 +150,7 @@ boxer2 <- function(names, file_path_input, color = "red", resize_x = NA, resize_
 
         class <- as.numeric(readline(prompt = "Enter ref# for the classifier of this bounding box "))
         if(!class %in% unique(as.numeric(classifier$ref))) {
-                cat("You did not select a valid value for classifier. Please try again.")
+                message("You did not select a valid value for classifier. Please try again.")
         } else {
                 class_check <- T
             }
@@ -171,7 +172,7 @@ boxer2 <- function(names, file_path_input, color = "red", resize_x = NA, resize_
 
         box_count <- box_count + 1
 
-        cycle <- as.numeric(readline(prompt = "Enter 1 to add bounding box to same image, any other key for next image "))
+        cycle <- as.numeric(readline(prompt = "Enter 1 to add another bounding box to same image, any other key for next image "))
 
         } #ends cycle
     }

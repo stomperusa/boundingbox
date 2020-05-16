@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-When we create bounding boxes in images, particularly if we intend to feed them into predictive models, we are often:
+When we create bounding boxes in images, particularly if we intend to feed them into predictive models for object localization and classification, we are often:
 
 * Processing many images
 * Classifying the contents of the bounding boxes

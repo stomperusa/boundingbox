@@ -4,7 +4,12 @@
 \alias{outBox}
 \title{Generate images with bounding boxes from coordinates in a dataframe}
 \usage{
-outBox(points_master, file_path_input, file_path_output, show_classifier = F)
+outBox(
+  points_master,
+  file_path_input,
+  file_path_output,
+  show_classifier = FALSE
+)
 }
 \arguments{
 \item{points_master}{A dataframe that captures the name of the image file,
@@ -46,21 +51,13 @@ Note y-coordinates should extend downward from the top, not upward from the
 bottom.
 }
 \examples{
-\dontrun{
-points_master <- data.frame(
-file_name = c("S2.jpg", "W1.jpg"),
-x_left = c(43, 150),
-y_top = c(42, 41),
-x_right = c(526, 658),
-y_bottom = c(595, 739),
-size_x = c(587, 1024),
-size_y = c(604, 768),
-classifier = c("Skip", "Waltz"),
-color = c("red", "yellow")
-)
+points_master <- data.frame(read.csv(system.file("extdata","points_example.csv",
+package = "boundingbox")), stringsAsFactors = F)
 
-outBox(points_master = points_master, file_path_input = "/dog_pics/input/",
-file_path_output = "/dog_pics/output/", show_classifier = T)
-}
+#Running this example will output a file to your working directory.
+
+outBox(points_master = points_master,
+file_path_input = system.file("extdata", package = "boundingbox"),
+file_path_output = getwd(), show_classifier = TRUE)
 
 }

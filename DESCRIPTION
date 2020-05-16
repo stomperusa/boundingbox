@@ -1,16 +1,20 @@
 Package: boundingbox
 Type: Package
 Title: Create a Bounding Box in an Image
-Version: 1.0.0
+Version: 1.0.0.9000
 Authors@R: person("David", "Stomski", email = "stomperusa@verizon.net", 
     role = c("aut", "cre"))
-Description: Cycle through a list of images. Select between 2 and 26 points on 
-    an image. The boxer() function will output the image with a bounding box based 
-    on the max/min coordinates and a dataframe of the coordinates. Also allows
-    to resize the image, change the box color, add a common classifier to the 
+Description: Use boundingbox functions to generate ground truth cases for object 
+    localization algorithms. Cycle through a list of images. Select between 2 and 26 
+    points on an image. The boxer() function will output the image with a bounding 
+    box based on the max/min coordinates and a dataframe of the coordinates. Also 
+    allows  to resize the image, change the box color, add a common classifier to the 
     dataframe and to the image. boxer2() also allows for multiple bounding boxes 
-    per image, and selection of a classifier per bounding box.
+    per image, and selection of a classifier per bounding box.  For an example study
+    that uses bounding boxes for image localization and classification see 
+    <https://www.sciencedirect.com/science/article/pii/S1877050912007260>.
 License: MIT + file LICENSE
+URL: <https://github.com/stomperusa/boundingbox>
 Encoding: UTF-8
 LazyData: true
 Imports: 
@@ -23,5 +27,7 @@ RoxygenNote: 7.1.0
 Suggests: 
     testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    spelling
 VignetteBuilder: knitr
+Language: en-US

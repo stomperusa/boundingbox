@@ -14,7 +14,7 @@ boxer(
   batch = length(names),
   outbox = F,
   file_path_output = NA,
-  show_classifier = F
+  show_classifier = FALSE
 )
 }
 \arguments{
@@ -90,10 +90,9 @@ function.
 }
 \examples{
 \dontrun{
-boxer(names = c("dog_pic1.jpg", "dog_pic2.jpg"),
-file_path_input = "/dog_pics/input/", size_x = 224, size_y = 224,
-classifier = "dog", outbox = T, file_path_output = "/dog_pics/output/",
-show_classifier = T)
+boxer_results <- boxer(names = c("S2.jpg"),
+file_path_input = system.file("extdata", package = "boundingbox"),
+resize_x = 224, resize_y = 224, classifier = "dog", outbox = FALSE)
 }
 
 }
