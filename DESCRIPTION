@@ -1,7 +1,7 @@
 Package: boundingbox
 Type: Package
 Title: Create a Bounding Box in an Image
-Version: 1.0.0.9000
+Version: 1.0.1
 Authors@R: person("David", "Stomski", email = "stomperusa@verizon.net", 
     role = c("aut", "cre"))
 Description: Use boundingbox functions to generate ground truth cases for object 
