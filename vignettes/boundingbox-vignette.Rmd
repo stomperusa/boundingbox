@@ -53,9 +53,18 @@ The **boxer** function allows you to stream through images (JPEG, PNG, BMP) from
 
 ### Example
 ``` {r, echo = TRUE, eval = FALSE}
-box_coords <- boxer(names = c("dog1.jpg", "dog2.jpg"), file_path_input = "/dog_pics/input/", 
-                    file_path_output = "/dog_pics/output/", classifier = "dog", 
-                    show_classifier = TRUE, resize_x = 224, resize_y = 224, outpics = TRUE)
+#Running this example will output a file to your working directory.
+box_coords <-
+    boxer(
+    names = c("S2.jpg", "W1.jpg"),
+    file_path_input = system.file("extdata",    package = "boundingbox"),
+    file_path_output = getwd(),
+    classifier = "dog",
+    show_classifier = TRUE,
+    resize_x = 224,
+    resize_y = 224,
+    outbox = TRUE
+    )
 ```
 When an image appears, use the left mouse button to select a point, and the right mouse button to signal completion and to move to the next image. To skip through any of the images, use the right mouse button prior to selecting any points with the left button. If the selected point goes out of the bounds of the image, the x and/or y coordinate is adjusted to the nearest set of coordinates on the inside edge of the image. 
 
@@ -77,7 +86,7 @@ The resulting data frame will have the bounding box coordinates, the classifier,
 
 box_coords
 ```{r echo=FALSE, eval=TRUE}
-box_coords <- data.frame(file_name = c("dog1.jpg", "dog2.jpg"), x_left = c(19,41), y_top = c(9,5), x_right = c(201, 149), y_bottom = c(223, 216), size_x = c(224, 224), size_y = c(224,224), classifier = "dog", color = "red", stringsAsFactors = FALSE)
+box_coords <- data.frame(file_name = c("S2.jpg", "W1.jpg"), x_left = c(19,41), y_top = c(9,5), x_right = c(201, 149), y_bottom = c(223, 216), size_x = c(224, 224), size_y = c(224,224), classifier = "dog", color = "red", stringsAsFactors = FALSE)
 box_coords
 ```
 
@@ -104,11 +113,24 @@ Note the only difference in the definition of the function call between **boxer*
 
 ### Example
 ``` {r, echo = TRUE, eval = FALSE}
-dog_df <- data.frame(ref = (1:2), class = c("Skip", "Waltz"), color = c("red","yellow"), stringsAsFactors = FALSE)
+dog_df <-
+    data.frame(
+    ref = (1:2),
+    class = c("Skip", "Waltz"),
+    color = c("red", "yellow"),
+    stringsAsFactors = FALSE
+    )
 
-box_coords2 <- boxer2(names = c("SW1.png"), file_path_input = "/dog_pics/input/", 
-                    file_path_output = "/dog_pics/output/", classifier = dog_df, 
-                    show_classifier = TRUE, outbox = TRUE)
+#Running this example will output a file to your working directory.    
+box_coords2 <-
+    boxer2(
+    names = c("SW1.png"),
+    file_path_input = system.file("extdata",    package = "boundingbox"),
+    file_path_output = getwd(),
+    classifier = dog_df,
+    show_classifier = TRUE,
+    outbox = TRUE
+    )
 ```
 
 After selecting the points for an image, you will be given the prompt below at which you enter the numeric "ref" value from the classifier dataframe that corresponds to the bounding box. 
@@ -158,8 +180,19 @@ The format for **points_master** is a follows:
 
 ###Example
 ``` {r, echo = TRUE, eval = FALSE}
-outBox(points_master = box_coords2, file_path_input = "/dog_pics/input/", 
-    file_path_output = "/dog_pics/output/", show_classifier = TRUE)
+points_master <-
+    data.frame(read.csv(
+    system.file("extdata", "points_example.csv",
+    package = "boundingbox")
+    ), stringsAsFactors = FALSE)
+    
+#Running this example will output a file to your working directory.
+outBox(
+    points_master = points_master,
+    file_path_input = system.file("extdata", package = "boundingbox"),
+    file_path_output = getwd(),
+    show_classifier = TRUE
+    )
 ```
 
 
