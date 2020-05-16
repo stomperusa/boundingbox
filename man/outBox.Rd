@@ -52,7 +52,7 @@ bottom.
 }
 \examples{
 points_master <- data.frame(read.csv(system.file("extdata","points_example.csv",
-package = "boundingbox")), stringsAsFactors = F)
+package = "boundingbox")), stringsAsFactors = FALSE)
 
 #Running this example will output a file to your working directory.
 

@@ -85,7 +85,7 @@ outBox <- function(points_master, file_path_input, file_path_output, show_classi
     for (n in 1:nrow(points_boxed)){
 
         lab <- ifelse(show_classifier == TRUE, points_boxed$classifier[n], "")
-        color <- points_boxed[n, "color"]
+        color <- gplots::col2hex(points_boxed[n, "color"])
 
         graphics::lines(c(points_boxed$x_left[n], points_boxed$x_left[n]),
                         c(points_boxed$size_y[n] - points_boxed$y_top[n], points_boxed$size_y[n] - points_boxed$y_bottom[n]),
