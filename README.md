@@ -23,12 +23,11 @@ Examples
 The **boxer** function allows you to stream through images and select between 2 and 26 points around which a bounding box is generated in each image. You can set a common classifier for all of the images.
 
 ``` r
-#Running this example will output a file to your working directory. 
 box_coords <-
     boxer(
     names = c("S2.jpg", "W1.jpg"),
     file_path_input = system.file("extdata",    package = "boundingbox"),
-    file_path_output = getwd(),
+    file_path_output = tempdir(),
     classifier = "dog",
     show_classifier = TRUE,
     resize_x = 224,
@@ -70,12 +69,11 @@ dog_df <-
     stringsAsFactors = FALSE
     )
 
-#Running this example will output a file to your working directory.   
 box_coords2 <-
     boxer2(
     names = c("SW1.png"),
     file_path_input = system.file("extdata",    package = "boundingbox"),
-    file_path_output = getwd(),
+    file_path_output = tempdir(),
     classifier = dog_df,
     show_classifier = TRUE,
     outbox = TRUE

@@ -1,7 +1,8 @@
 ## Resubmission
 *Added a reference in the Description.
 *Created runnable examples based on files in inst/extdata. For boxer() and boxer2() I have left these as \dontrun{} because those functions call grDevices::x11() and result in an error "screen devices should not be used in examples..."
-*replaced instances where I used cat() with message().
+*Replaced instances where I used cat() with message().
+*Using tempdir() for examples
 
 
 ## Test environments
@@ -15,12 +16,7 @@ win devel resulted in a loadNamespace error, "there is no package called 'tiff'.
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 notes
+0 errors | 0 warnings | 0 notes
 
-* checking for non-standard things in the check directory ... NOTE
-    Found the following files/directories:
-    'out_SW1.jpg'
-    
-    This is the output file from the outbox() example. outbox() requires an       output directory in the call and I have set the default to getwd() to make     the example runnable.
 
 * This is a new release. 

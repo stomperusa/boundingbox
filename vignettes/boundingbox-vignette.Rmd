@@ -53,12 +53,11 @@ The **boxer** function allows you to stream through images (JPEG, PNG, BMP) from
 
 ### Example
 ``` {r, echo = TRUE, eval = FALSE}
-#Running this example will output a file to your working directory.
 box_coords <-
     boxer(
     names = c("S2.jpg", "W1.jpg"),
     file_path_input = system.file("extdata",    package = "boundingbox"),
-    file_path_output = getwd(),
+    file_path_output = tempdir(),
     classifier = "dog",
     show_classifier = TRUE,
     resize_x = 224,
@@ -120,13 +119,12 @@ dog_df <-
     color = c("red", "yellow"),
     stringsAsFactors = FALSE
     )
-
-#Running this example will output a file to your working directory.    
+   
 box_coords2 <-
     boxer2(
     names = c("SW1.png"),
     file_path_input = system.file("extdata",    package = "boundingbox"),
-    file_path_output = getwd(),
+    file_path_output = tempdir(),
     classifier = dog_df,
     show_classifier = TRUE,
     outbox = TRUE
@@ -186,11 +184,11 @@ points_master <-
     package = "boundingbox")
     ), stringsAsFactors = FALSE)
     
-#Running this example will output a file to your working directory.
+
 outBox(
     points_master = points_master,
     file_path_input = system.file("extdata", package = "boundingbox"),
-    file_path_output = getwd(),
+    file_path_output = tempdir(),
     show_classifier = TRUE
     )
 ```

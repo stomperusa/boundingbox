@@ -36,11 +36,10 @@
 #'points_master <- data.frame(read.csv(system.file("extdata","points_example.csv",
 #'package = "boundingbox")), stringsAsFactors = FALSE)
 #'
-#' #Running this example will output a file to your working directory.
 #'
 #'outBox(points_master = points_master,
 #'file_path_input = system.file("extdata", package = "boundingbox"),
-#'file_path_output = getwd(), show_classifier = TRUE)
+#'file_path_output = tempdir(), show_classifier = TRUE)
 #'
 #'@export
 outBox <- function(points_master, file_path_input, file_path_output, show_classifier = FALSE){
