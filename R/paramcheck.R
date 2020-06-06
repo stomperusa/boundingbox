@@ -13,7 +13,7 @@ paramCheck <- function(names, file_path_input, color, outbox, file_path_output, 
         function(){if(!dir.exists(file_path_input)) {
             stop('file_path_input not found')}},
         #4
-        function(){if(outbox == T) if(!dir.exists(file_path_output)) {
+        function(){if(outbox == TRUE) if(!dir.exists(file_path_output)) {
             stop('file_path_output not found')}},
         #5
         function(){if(!color %in% grDevices::colors()) {

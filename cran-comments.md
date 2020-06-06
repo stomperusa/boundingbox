@@ -1,4 +1,10 @@
 ## Resubmission
+*Redrafted Description field in Description
+*Replaced http reference with doi reference in the Description
+*Replaced instances of T/F with TRUE/FALSE
+
+
+## Previous Resubmission
 *Added a reference in the Description.
 *Created runnable examples based on files in inst/extdata. For boxer() and boxer2() I have left these as \dontrun{} because those functions call grDevices::x11() and result in an error "screen devices should not be used in examples..."
 *Replaced instances where I used cat() with message().

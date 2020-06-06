@@ -12,7 +12,7 @@ boxer(
   resize_y = NA,
   classifier = NA,
   batch = length(names),
-  outbox = F,
+  outbox = FALSE,
   file_path_output = NA,
   show_classifier = FALSE
 )

@@ -12,9 +12,9 @@ boxer2(
   resize_y = NA,
   classifier,
   batch = length(names),
-  outbox = F,
+  outbox = FALSE,
   file_path_output = NA,
-  show_classifier = F
+  show_classifier = FALSE
 )
 }
 \arguments{
@@ -97,13 +97,13 @@ required per image, consider using the boxer function instead.
 \examples{
 # A sample classifier dataframe
 dog_df <- data.frame(read.csv(system.file("extdata","dog_df.csv",
-package = "boundingbox")), stringsAsFactors = F)
+package = "boundingbox")), stringsAsFactors = FALSE)
 
 # Use 1 to classify the first dog and 2 to classify the second.
 \dontrun{
 boxer2_results <- boxer2(names = c("SW1.jpg"),
 file_path_input = system.file("extdata", package = "boundingbox"),
-resize_x = 224, resize_y = 224, classifier = dog_df, outbox = F)
+resize_x = 224, resize_y = 224, classifier = dog_df, outbox = FALSE)
 }
 
 }

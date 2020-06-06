@@ -68,7 +68,7 @@
 #'@export
 boxer <- function(names, file_path_input, color = "red", resize_x = NA, resize_y = NA,
                   classifier = NA,  batch = length(names),
-                  outbox = F, file_path_output = NA, show_classifier = FALSE) {
+                  outbox = FALSE, file_path_output = NA, show_classifier = FALSE) {
 
     # run checks to validate parameters
     checks <- c(1:5)
@@ -133,7 +133,7 @@ boxer <- function(names, file_path_input, color = "red", resize_x = NA, resize_y
     points_master$color <- color
 
     # generate output images
-    if(outbox == T) {outBox(points_master = points_master, file_path_input = file_path_input,
+    if(outbox == TRUE) {outBox(points_master = points_master, file_path_input = file_path_input,
                                 file_path_output = file_path_output, show_classifier = show_classifier)}
 
     return(points_master)
