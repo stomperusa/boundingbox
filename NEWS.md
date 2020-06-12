@@ -1,4 +1,5 @@
 # boundingbox 1.0.1
+* This version accepted by CRAN
 
 * This version addresses CRAN feedback
     -   adds a reference to Description

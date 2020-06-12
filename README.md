@@ -8,7 +8,13 @@ Select points or sets of points on an image to generate bounding boxes.
 Installation
 ------------
 
-**boundingbox** can be installed from Github.
+**boundingbox** can be installed from CRAN or Github.
+
+### CRAN
+
+``` r
+install.packages("boundingbox")
+```
 
 ### Github
 
